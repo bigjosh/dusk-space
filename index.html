@@ -28,7 +28,7 @@
     
     <!-- This super helpfull random audio code from https://stackoverflow.com/a/37635401/3152071 -->
     
-    <audio id="audioplayer" controls> <!-- Remove the "Controls" Attribute if you don't want the visual controls -->
+    <audio id="audioplayer"> <!-- Remove the "Controls" Attribute if you don't want the visual controls -->
     </audio>
 
     <script>
@@ -45,7 +45,6 @@
         }
 
         selectRandom(); // Select initial song
-        player.play(); // Start Song
         
     </script>    
     
@@ -62,11 +61,15 @@
           wakeLockEnabled = true;
           toggleEl.value = "Hear Less";
           document.body.style.backgroundColor = "green";
+          player.play(); // Start Song
+          
         } else {
           noSleep.disable(); // let the screen turn off.
           wakeLockEnabled = false;
           toggleEl.value = "Hear More";
           document.body.style.backgroundColor = "";
+          player.stop(); // Start Song
+          
         }
       }, false);
     </script>
