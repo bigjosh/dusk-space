@@ -9,16 +9,43 @@
 </head>
 
 <body>
+
+
+   <script src="dist/NoSleep.js"></script>
+     
+
   <div id="title" class="headline">
     <h1>dusk.space</h1>
+  
+  
   </div>
 	<div>
   <script src="sketch.js"></script>
 	</div>
 	<br>
 	
-	<button class="button">Hear more</button>
+	<button class="button" id="toggle">Hear more</button>
+    
+    <!-- Nosleep keeps phone from going to sleep while sounds are playing -->
+    <!-- https://github.com/richtr/NoSleep.js -->
 	
-
+    <script>
+      var noSleep = new NoSleep();
+      var wakeLockEnabled = false;
+      var toggleEl = document.querySelector("#toggle");
+      toggleEl.addEventListener('click', function() {
+        if (!wakeLockEnabled) {
+          noSleep.enable(); // keep the screen on!
+          wakeLockEnabled = true;
+          toggleEl.value = "Hear Less";
+          document.body.style.backgroundColor = "green";
+        } else {
+          noSleep.disable(); // let the screen turn off.
+          wakeLockEnabled = false;
+          toggleEl.value = "Hear More";
+          document.body.style.backgroundColor = "";
+        }
+      }, false);
+    </script>
 
 </body></html>
