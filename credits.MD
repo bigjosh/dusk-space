@@ -1,4 +1,3 @@
-# Credits
 
 ## Making it possible
 
