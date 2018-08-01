@@ -33,13 +33,21 @@
         var playlist = ["sounds/0.mp3", "sounds/1.mp3", "sounds/2.mp3" , "sounds/3.mp3", "sounds/4.mp3", "sounds/5.mp3"  ]; // List of Songs
         var player = document.getElementById("audioplayer"); // Get Audio Element
         // player.autoplay=true;
-        player.addEventListener("ended", selectRandom); // Run function when song ends
+        player.addEventListener("ended", nextSound ); // Run function when song ends
+        
 
         function selectRandom(){
             selection = Math.floor(Math.random() * playlist.length);
             player.src = playlist[selection]; // Tell HTML the location of the new Song
 
         }
+        
+        function nextSound(){
+            selectRandom(); // Select initial song
+            player.play();
+
+        }
+        
 
         selectRandom(); // Select initial song
         
