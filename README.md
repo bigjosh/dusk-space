@@ -1,37 +1,23 @@
-## Welcome to GitHub Pages
+# dusk.space
 
-You can use the [editor on GitHub](https://github.com/bigjosh/dusk-space/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+## Where
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Peck Slip, NYC
+https://www.google.com/maps/@40.7075184,-74.0014613,21z
 
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## When
 
-```markdown
-Syntax highlighted code block
+August 2018
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
+## Why
 
-1. Numbered
-2. List
+Artists statement
+http://dusk.space/statement.txt
 
-**Bold** and _Italic_ and `Code` text
 
-[Link](url) and ![Image](src)
-```
+## How
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/bigjosh/dusk-space/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Credits
+http://dusk.space/credits.html
