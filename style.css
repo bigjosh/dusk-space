@@ -22,10 +22,14 @@ p {
 
 .button {
     position: relative;
-	  background-color: #4CAF50;   // Green
+    
+    
+    /* Green */
+    background-color: #4CAF50; 
 	
-    //background-color: #008CBA; // Blue
-    border: none;
+    /* Blue */
+    /* background-color: #008CBA; */
+			
     font-size: 28px;
     color: #FFFFFF;
     padding: 20px;
