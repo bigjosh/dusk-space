@@ -1,5 +1,3 @@
-# dusk.space
-
 ## Where
 
 Peck Slip, NYC
@@ -13,11 +11,13 @@ August 2018
 
 ## Why
 
-Artists statement
+Artist statement
+
 http://dusk.space/statement.txt
 
 
 ## How
 
 Credits
+
 http://dusk.space/credits.html
