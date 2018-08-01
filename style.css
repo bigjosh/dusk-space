@@ -30,6 +30,8 @@ p {
     /* Blue */
     /* background-color: #008CBA; */
 			
+			
+    border-style: none;
     font-size: 28px;
     color: #FFFFFF;
     padding: 20px;
