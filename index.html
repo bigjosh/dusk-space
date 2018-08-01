@@ -35,7 +35,7 @@
         var selection = null;
         var playlist = ["sounds/0.mp3", "sounds/1.mp3", "sounds/2.mp3" , "sounds/3.mp3", "sounds/4.mp3", "sounds/5.mp3"  ]; // List of Songs
         var player = document.getElementById("audioplayer"); // Get Audio Element
-        player.autoplay=true;
+        // player.autoplay=true;
         player.addEventListener("ended", selectRandom); // Run function when song ends
 
         function selectRandom(){
@@ -59,16 +59,16 @@
         if (!wakeLockEnabled) {
           noSleep.enable(); // keep the screen on!
           wakeLockEnabled = true;
-          toggleEl.value = "Hear Less";
+          toggleEl.innerText  = "Hear Less";
           document.body.style.backgroundColor = "green";
           player.play(); // Start Song
           
         } else {
           noSleep.disable(); // let the screen turn off.
           wakeLockEnabled = false;
-          toggleEl.value = "Hear More";
+          toggleEl.innerText  = "Hear More";
           document.body.style.backgroundColor = "";
-          player.stop(); // Start Song
+          player.pause(); // Stop Song
           
         }
       }, false);
