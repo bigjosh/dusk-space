@@ -16,7 +16,15 @@ var scaleFactor;
 function setup() {
   // createCanvas(375,667, WEBGL);// simulate screen size
   createCanvas(windowWidth, windowHeight, WEBGL);
-  scaleFactor = windowWidth / 375;
+  scaleFactor = windowHeight / 500;
+}
+
+// Make responsive
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+	  scaleFactor = windowHeight / 500;
+
 }
 
 function draw() {
