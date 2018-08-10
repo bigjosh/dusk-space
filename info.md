@@ -10,7 +10,7 @@ August 2018
 
 ## Why
 
-[http://dusk.space/statement.txt](http://dusk.space/statement.txt)
+[http://dusk.space/statement.txt](http://dusk.space/statement.html)
 
 
 ## How
