@@ -19,19 +19,23 @@ function setup() {
   // createCanvas(375,667, WEBGL);// simulate screen size
   
   var cnv = createCanvas(windowWidth, windowHeight, WEBGL);
+  //var cnv = createCanvas(500, 500 , WEBGL);
   
   // Without this next line, you sometimes get scroll bars! AgghhH!
   // https://github.com/processing/p5.js/wiki/Positioning-your-canvas
   
   cnv.style('display', 'block');
   scaleFactor = windowHeight / 500;
+  
+  console.log('setup(' + windowWidth +','+ windowHeight +')' );
+  
 }
 
 // Make responsive
 
 function windowResized() {
+  console.log('windowResized(' + windowWidth +','+ windowHeight +')' );
   resizeCanvas(windowWidth, windowHeight);
-  cnv.style('display', 'block');  
   scaleFactor = windowHeight / 500;
 
 }

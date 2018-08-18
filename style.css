@@ -22,33 +22,31 @@ p {
 
 
 .button {
+  
     position: relative;
         
     background-color: #4CAF50; 
 	
     border-style: none;
-    font-size: 28px;
+     font-size: 60px;
     color: #FFFFFF;
+    padding: 50px;
   
-  
-    padding: 20px;
-    width: 200px;
+    /* width: 400px; */
   
   
     text-align: center;
-  
-    
+      
     -webkit-transition-duration: 0.4s;  /* Safari */
-  
-  
-    transition-duration: 0.4s;
+
+  transition-duration: 0.4s;
     text-decoration: none;
     overflow: hidden;
     cursor: pointer;
   
 }
 
-
+/*
 
 .button:after {
     content: "";
@@ -63,6 +61,7 @@ p {
     transition: all 0.8s
 }
 
+*/
 
 
 .button:active:after {
@@ -73,7 +72,7 @@ p {
 }
 
 
-/* Centered text */
+/* Centered text  */
 .button {
     position: absolute;
     top: 85%;
@@ -81,7 +80,7 @@ p {
     transform: translate(-50%, -50%);
     z-index: 3;
 }
-
+*
 .headline {
     position: absolute;
     top: 15%;

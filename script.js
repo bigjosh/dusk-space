@@ -65,7 +65,9 @@ function getTime() {
   })
 }
 
-function push() {
+function pushThunder() {
+  
+  console.log('pushing thunder');  
   pubnub.publish(
       {
           message: "strike",
@@ -77,4 +79,6 @@ function push() {
           // handle status, response
       }
   );
+  console.log('pushed thunder');  
+  
 }

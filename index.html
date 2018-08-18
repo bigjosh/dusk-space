@@ -8,58 +8,60 @@
   <link rel="stylesheet" type="text/css" href="style.css">
   <meta charset="utf-8">
   
-  <!-- Full screen overlay code for lightning from https://www.w3schools.com/howto/howto_css_overlay.asp -->
+  <!-- This viewport seems to cause p5js to make the canvas way too big. Hmmm... -->
   
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-  #overlay {
-      position: fixed;
-      display: block;
-      opacity: 0;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ffffff;
-      z-index: 2;
-      cursor: pointer;
-  }
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
   
- /* Lightning animation from https://codepen.io/Chrislion_me/pen/rVqwbO */
+  <!-- Full screen overlay code for lightning from https://www.w3schools.com/howto/howto_css_overlay.asp -->	
     
- @keyframes flash {
-	  from { opacity: 0; } 
-    20% { opacity: 0; }
-	  30% { opacity: 0.6; }
-    40% { opacity: 0.2; }
-    60% { opacity: 1; } 
-    80% { opacity: 1; } 
-    100%  { opacity: 0; } 
-	  to { opacity: 0; }
-  }
+  <style>	
     
-  .animateMe {
-    animation: flash ease-out 0.7s;
-  }  
+  #overlay {	
+      position: fixed;	
+      display: block;	
+      opacity: 0;	
+      width: 100%;	
+      height: 100%;	
+      top: 0;	
+      left: 0;	
+      right: 0;	
+      bottom: 0;	
+      background-color: #ffffff;	
+      z-index: 2;	
+      cursor: pointer;	
+  }    
     
-    
-  </style>
+ /* Lightning animation from https://codepen.io/Chrislion_me/pen/rVqwbO */	
+    	
+ @keyframes flash {	
+	  from { opacity: 0; } 	
+    20% { opacity: 0; }	
+	  30% { opacity: 0.6; }	
+    40% { opacity: 0.2; }	
+    60% { opacity: 1; } 	
+    80% { opacity: 1; } 	
+    100%  { opacity: 0; } 	
+	  to { opacity: 0; }	
+  }	
+    	
+  .animateMe {	
+    animation: flash ease-out 0.7s;	
+  }  	
+    	
+    	
+  </style>  
+  
   
 </head>
   
   
 
-<body id="everything">
+<body id="everything"> 
 
   <a style="text-decoration: none; color: #efefff;" href="info.html">
   <div id="overlay"></div> 
   </a>
-    <!-- This script keeps the phone awake (only after the button is pressed) -->
-   <script src="dist/NoSleep.js"></script>
-    
-    
+  
       <div id="title" class="headline">
         <h1>dusk.space</h1>
       </div>
@@ -76,7 +78,11 @@
     <audio id="audioplayersummer"> <!-- Remove the "Controls" Attribute if you don't want the visual controls -->
     </audio>
     
-    <audio id="audioplayerthunder" src="sounds/t2.mp3" preload="auto"> <!-- Preload should make the play command low latency -->
+  
+   <!-- This AUDIO just handles playing the thunder effect -->
+   <!-- Preload should make it load the MP3 and the play command low latency -->
+   <!--We start muted becuase safari makes us do a play inside an click eventlistener, and then we unmute and restart when we get the thunder message from pubnub -->
+    <audio id="audioplayerthunder" muted src="https://cdn.glitch.com/0c4ef99b-c31e-4720-bb05-e2329515bed1%2Ft2.mp3?1534564191679" preload="auto">
     </audio>
     
     <script>
@@ -108,67 +114,56 @@
     </script>
   
   
-    <script>
-      
-        <!-- Thunder -->
-      
-        var selection = null;
-        //var playlist = ["assets/t0.mp3", "assets/t1.mp3", "assets/t2.mp3"   ]; // List of thunder effects
-      
-        /*
-        // player.autoplay=true;
-        player.addEventListener("ended", nextSound ); // Run function when song ends
-
-
-        function selectRandom(){
-            selection = Math.floor(Math.random() * playlist.length);
-            player.src = playlist[selection]; // Tell HTML the location of the new Song
-
-        }
-
-        function nextSound(){
-            selectRandom(); // Select initial song
-            player.play();
-
-        }
-
-
-        selectRandom(); // Select initial song
-      
-        */
-
-    </script>
-  
 
     <!-- Nosleep keeps phone from going to sleep while sounds are playing -->
     <!-- https://github.com/richtr/NoSleep.js -->
+  
+    <!-- This script keeps the phone awake (only after the button is pressed) -->
+   <script src="dist/NoSleep.js"></script>
+  
 
     <script>
-      var noSleep = new NoSleep();
-      var wakeLockEnabled = false;
+      
+      var noSleep = new NoSleep();      
+      
+      var soundenabled = false;
       var toggleEl = document.querySelector("#toggle");
-            
+      var thunderplayer = document.getElementById("audioplayerthunder"); // Get Audio Element                
       
       toggleEl.addEventListener('click', function() {
         
+        
         //fullscreen.visible = true;
         
-        if (!wakeLockEnabled) {
-          noSleep.enable(); // keep the screen on!
-          wakeLockEnabled = true;
+        if (!soundenabled) {
+
+          noSleep.enable();
           toggleEl.innerText  = "Hear Less";
           //<!-- document.body.style.backgroundColor = "green";-->
           player.play(); // Start Song
+          
+          thunderplayer.play();    // It is muted right now, but we have to do the play inside this event handler or
+                                   // or safari will not let it play. Being inthe event handler gives it permission. 
+          
+          soundenabled = true;
+          
 
         } else {
-          noSleep.disable(); // let the screen turn off.
-          wakeLockEnabled = false;
+          
+          noSleep.disable();          
           toggleEl.innerText  = "Hear More";
           //<!--document.body.style.backgroundColor = "";-->
           player.pause(); // Stop Song
+          soundenabled = false;
 
         }
+        
+        
+                
       }, false);
+      
+      
+      
       
       // This is the only way I could come up with to make it so the aniumation could be rerun. Man, how do javascript/css people live like this?
       
@@ -179,28 +174,122 @@
         
       }
       
-      function feelthethunder() {
-        var overlay = document.getElementById("overlay");        
-        overlay.classList.add("animateMe");
+      var thunderSeconds = 30 ;      // Time better consecutive spontainious thunder claps
+      
+      var thunderInHoldoff = false;        // Wait a minimum between consecutive thunders
+            
+      var nextspontaiousThunder;
+      
+      function schedualNextThunder() {
         
-        var thunderplayer = document.getElementById("audioplayerthunder"); // Get Audio Element     
+        clearTimeout( nextspontaiousThunder );
         
-        // I hoped this would make it work on safari. It didn't. 
-        // thunderplayer.src="https://cdn.glitch.com/0c4ef99b-c31e-4720-bb05-e2329515bed1%2Ft2.mp3?1534564191679"
-        thunderplayer.play();
+        var thunderdelaysecs =  thunderSeconds + (Math.random() * 10 ) ;
         
-        // Code for Chrome, Safari and Opera
-        overlay.addEventListener("webkitAnimationEnd", animationRemover);
-
-        // Standard syntax
-        overlay.addEventListener("animationend", animationRemover);        
-
+        
+        var time = new Date();        
+        console.log(time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds() + ' - schedualed next spontious thunder in ' + thunderdelaysecs + 'secs' );
                 
+        nextspontaiousThunder = setTimeout( spontaiousThunder , thunderdelaysecs *1000 );    // ESchedual next thinderclap, with +/-10 sec randomness to unsync all the different clients                  
+        
       }
       
+      schedualNextThunder();    // Kickstart first one
+      
+      function spontaiousThunder() {    // If we get here, then no one else has thundered for 5 minutes so we get too!
+                
+        if (!thunderInHoldoff) {
+        
+            // trigger the thunder message on pubnub (we will get it too just like everyone else) 
+
+          pushThunder();  // Defined in script.js, sends a thunder message to pubnub
+
+          var time = new Date();
+          console.log(time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds() + ' - sent thunder');
+          
+        } else {
+
+          // This should really noit be nessisary, but for some reason this handler is still caleed even after
+          // the clearTimeout() is executed. 
+          
+          var time = new Date();
+          console.log(time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds() + ' - did not push thunder becuase we are in a holdoff.');
+                    
+        }
+        
+        schedualNextThunder();
+        
+      }
+      
+      // Actually play the thunder sound
+      
+      function feelthethunder() {
+        
+        console.log('reseting spontainous thunder timer');
+                                
+        if (!thunderInHoldoff) {
+                              
+          var time = new Date();
+          console.log(time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds() + ' - playing thunder');
+          
+          
+          thunderInHoldoff = true; 
+          setTimeout( function(){ thunderInHoldoff = false; } , 15 * 1000 );    // Reallow thunder in 15 seconds                  
+          
+          
+          // This mess is to let the animation restart. 
+          // The event listener automatically removes the previously added animation class
+          // so next time we can add it again. So ugly. 
+                
+          var overlay = document.getElementById("overlay");        
+          overlay.classList.add("animateMe");
+          // Code for Chrome, Safari and Opera
+          overlay.addEventListener("webkitAnimationEnd", animationRemover);
+
+          // Standard syntax
+          overlay.addEventListener("animationend", animationRemover);        
+
+
+          if (soundenabled) {
+
+            var thunderplayer = document.getElementById("audioplayerthunder"); // Get Audio Element     
+
+            // I hoped this would make it work on safari. It didn't. 
+            // thunderplayer.src="https://cdn.glitch.com/0c4ef99b-c31e-4720-bb05-e2329515bed1%2Ft2.mp3?1534564191679"
+            //thunderplayer.play();
+
+
+            thunderplayer.pause();
+            thunderplayer.src = "https://cdn.glitch.com/0c4ef99b-c31e-4720-bb05-e2329515bed1%2Ft2.mp3?1534564191679";
+            thunderplayer.muted = false;
+            thunderplayer.load();
+            thunderplayer.play();
+
+
+          }
+          
+          
+          
+        } else {
+          
+          var time = new Date();
+          console.log(time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds() + ' - thunder SKIPPED DUE TO HOLDOFFF');
+          
+        }
+        
+        schedualNextThunder();      // Push off any pending thunder into the future more to reflect this just happened one
+                                    // SHould also cancel any pending, but does not seem too. 
+        
+              
+        
+      }
+
+              
       
     </script>
 
+  
+    <!-- We use pubnub to sync the thunder between devices. The script.js handles that communication. -->
   
     <!-- Pubnub feel the thunder -->
     <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.15.1.min.js"></script>        
