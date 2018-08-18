@@ -81,4 +81,18 @@ https://freesound.org/people/eric5335/sounds/53380/
 kslagerman
 https://freesound.org/people/kslagerman/sounds/155766/
 
+#### HD Thunder
+Mark DiAngelo 
+http://soundbible.com/1913-Thunder-HD.html
+
+### Perfect Thunder Storm Sound
+Mike Koenig 
+http://soundbible.com/916-Perfect-Thunder-Storm.html
+
+### Thunder Strike 1 Sound
+Mike Koenig 
+http://soundbible.com/2015-Thunder-Strike-1.html
+
+
+
 

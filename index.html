@@ -1,38 +1,91 @@
 <!DOCTYPE html><html><head>
+
   <script src="p5.min.js"></script>
   <script src="p5.dom.min.js"></script>
   <script src="p5.sound.min.js"></script>
+  
   <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="style.css">
   <meta charset="utf-8">
-
+  
+  <!-- Full screen overlay code for lightning from https://www.w3schools.com/howto/howto_css_overlay.asp -->
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  #overlay {
+      position: fixed;
+      display: block;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ffffff;
+      z-index: 2;
+      cursor: pointer;
+  }
+  
+ /* Lightning animation from https://codepen.io/Chrislion_me/pen/rVqwbO */
+    
+ @keyframes flash {
+	  from { opacity: 0; } 
+    20% { opacity: 0; }
+	  30% { opacity: 0.6; }
+    40% { opacity: 0.2; }
+    60% { opacity: 1; } 
+    80% { opacity: 1; } 
+    100%  { opacity: 0; } 
+	  to { opacity: 0; }
+  }
+    
+  .animateMe {
+    animation: flash ease-out 0.7s;
+  }  
+    
+    
+  </style>
+  
 </head>
+  
+  
 
-<body>
+<body id="everything">
 
-
-   <script src="dist/NoSleep.js"></script>
   <a style="text-decoration: none; color: #efefff;" href="info.html">
+  <div id="overlay"></div> 
+  </a>
+    <!-- This script keeps the phone awake (only after the button is pressed) -->
+   <script src="dist/NoSleep.js"></script>
+    
+    
       <div id="title" class="headline">
         <h1>dusk.space</h1>
       </div>
 
       <div>
-        <script src="sketch.js"></script>
+        <!-- Spinning globe in p5js -->
+        <script src="sketch.js"></script> 
       </div>
 
-  </a>
 	<button class="button" id="toggle">Hear more</button>
 
     <!-- This super helpfull random audio code from https://stackoverflow.com/a/37635401/3152071 -->
 
-    <audio id="audioplayer"> <!-- Remove the "Controls" Attribute if you don't want the visual controls -->
+    <audio id="audioplayersummer"> <!-- Remove the "Controls" Attribute if you don't want the visual controls -->
     </audio>
-
+    
+    <audio id="audioplayerthunder" src="sounds/t2.mp3" preload="auto"> <!-- Preload should make the play command low latency -->
+    </audio>
+    
     <script>
+      
+        <!-- Summer sounds -->
+      
         var selection = null;
         var playlist = ["sounds/0.mp3", "sounds/1.mp3", "sounds/2.mp3" , "sounds/3.mp3", "sounds/4.mp3", "sounds/5.mp3"  ]; // List of Songs
-        var player = document.getElementById("audioplayer"); // Get Audio Element
+        var player = document.getElementById("audioplayersummer"); // Get Audio Element
         // player.autoplay=true;
         player.addEventListener("ended", nextSound ); // Run function when song ends
 
@@ -53,6 +106,39 @@
         selectRandom(); // Select initial song
 
     </script>
+  
+  
+    <script>
+      
+        <!-- Thunder -->
+      
+        var selection = null;
+        //var playlist = ["assets/t0.mp3", "assets/t1.mp3", "assets/t2.mp3"   ]; // List of thunder effects
+      
+        /*
+        // player.autoplay=true;
+        player.addEventListener("ended", nextSound ); // Run function when song ends
+
+
+        function selectRandom(){
+            selection = Math.floor(Math.random() * playlist.length);
+            player.src = playlist[selection]; // Tell HTML the location of the new Song
+
+        }
+
+        function nextSound(){
+            selectRandom(); // Select initial song
+            player.play();
+
+        }
+
+
+        selectRandom(); // Select initial song
+      
+        */
+
+    </script>
+  
 
     <!-- Nosleep keeps phone from going to sleep while sounds are playing -->
     <!-- https://github.com/richtr/NoSleep.js -->
@@ -61,24 +147,66 @@
       var noSleep = new NoSleep();
       var wakeLockEnabled = false;
       var toggleEl = document.querySelector("#toggle");
+            
+      
       toggleEl.addEventListener('click', function() {
+        
+        //fullscreen.visible = true;
+        
         if (!wakeLockEnabled) {
           noSleep.enable(); // keep the screen on!
           wakeLockEnabled = true;
           toggleEl.innerText  = "Hear Less";
-          <!-- document.body.style.backgroundColor = "green";-->
+          //<!-- document.body.style.backgroundColor = "green";-->
           player.play(); // Start Song
 
         } else {
           noSleep.disable(); // let the screen turn off.
           wakeLockEnabled = false;
           toggleEl.innerText  = "Hear More";
-          <!--document.body.style.backgroundColor = "";-->
+          //<!--document.body.style.backgroundColor = "";-->
           player.pause(); // Stop Song
 
         }
       }, false);
+      
+      // This is the only way I could come up with to make it so the aniumation could be rerun. Man, how do javascript/css people live like this?
+      
+      function animationRemover() {
+        
+        overlay = document.getElementById("overlay");    
+        overlay.classList.remove("animateMe");        
+        
+      }
+      
+      function feelthethunder() {
+        var overlay = document.getElementById("overlay");        
+        overlay.classList.add("animateMe");
+        
+        var thunderplayer = document.getElementById("audioplayerthunder"); // Get Audio Element     
+        
+        // I hoped this would make it work on safari. It didn't. 
+        // thunderplayer.src="https://cdn.glitch.com/0c4ef99b-c31e-4720-bb05-e2329515bed1%2Ft2.mp3?1534564191679"
+        thunderplayer.play();
+        
+        // Code for Chrome, Safari and Opera
+        overlay.addEventListener("webkitAnimationEnd", animationRemover);
+
+        // Standard syntax
+        overlay.addEventListener("animationend", animationRemover);        
+
+                
+      }
+      
+      
     </script>
+
+  
+    <!-- Pubnub feel the thunder -->
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.15.1.min.js"></script>        
+    <!-- start listening on the channel -->
+    <script src="/script.js" defer></script>
+  
 
     <!-- Default Statcounter code for Dusk.space
     http://dusk.space -->

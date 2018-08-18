@@ -13,9 +13,17 @@
 
 var scaleFactor;
 
+
+
 function setup() {
   // createCanvas(375,667, WEBGL);// simulate screen size
-  createCanvas(windowWidth, windowHeight, WEBGL);
+  
+  var cnv = createCanvas(windowWidth, windowHeight, WEBGL);
+  
+  // Without this next line, you sometimes get scroll bars! AgghhH!
+  // https://github.com/processing/p5.js/wiki/Positioning-your-canvas
+  
+  cnv.style('display', 'block');
   scaleFactor = windowHeight / 500;
 }
 
@@ -23,11 +31,15 @@ function setup() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
-	  scaleFactor = windowHeight / 500;
+  cnv.style('display', 'block');  
+  scaleFactor = windowHeight / 500;
 
 }
 
+
+
 function draw() {
+  
   background(0);
 
   // update an ambient background lighting
@@ -73,6 +85,8 @@ function draw() {
   // grass.update();
   // grass.display();
 }
+
+
 
 var drawStar = function(x, y, size, period, phaseShift) {
   push();
